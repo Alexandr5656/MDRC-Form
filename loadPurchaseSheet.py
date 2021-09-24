@@ -3,7 +3,7 @@ import pandas as pd
 
 # read an excel file and convert
 # into a dataframe object
-df = pd.DataFrame(pd.read_excel("test.xlsx"))
+
 
 # show the dataframe
 
@@ -21,7 +21,7 @@ class PartOrdered:
         self.company = company
         self.ordered = ordered
 
-purchaseList = dict()
+
 #   1:Name
 #   2:Team
 #   3:Part
@@ -36,20 +36,26 @@ purchaseList = dict()
 #   12:Date Ordered
 #   13:Date Recieved
 #name,team,part,price,quantity,company,ordered
-for partOrdered in df.values:
-    newPart = PartOrdered(partOrdered[1],partOrdered[2],partOrdered[3],partOrdered[4],partOrdered[5],partOrdered[6],partOrdered[11])
+def loadSheet(fileName):
+    df = pd.DataFrame(pd.read_excel(fileName))
+    purchaseList = dict()
+    for partOrdered in df.values:
+        newPart = PartOrdered(partOrdered[1],partOrdered[2],partOrdered[3],partOrdered[4],partOrdered[5],partOrdered[6],partOrdered[11])
 
-    if newPart.ordered == "y":
-        continue
-    if not newPart.team in purchaseList.keys():
-        purchaseList[newPart.team]= dict()
-        purchaseList[newPart.team][newPart.company]=[]
+        if newPart.ordered == "y":
+            continue
+        if "TUX" in newPart.team or "Battle" in newPart.team:
+            if 'BattleBots' not in purchaseList.keys():
+                purchaseList["BattleBots"] = dict()
+                purchaseList["BattleBots"][newPart.company] = []
+        if not newPart.team in purchaseList.keys():
+            purchaseList[newPart.team]= dict()
+            purchaseList[newPart.team][newPart.company]=[]
+            purchaseList[newPart.team][newPart.company].append(newPart)
+            continue
+        if not newPart.company in purchaseList[newPart.team].keys():
+            purchaseList[newPart.team][newPart.company] = []
+            purchaseList[newPart.team][newPart.company].append(newPart)
+            continue
         purchaseList[newPart.team][newPart.company].append(newPart)
-        continue
-    if not newPart.company in purchaseList[newPart.team].keys():
-        purchaseList[newPart.team][newPart.company] = []
-        purchaseList[newPart.team][newPart.company].append(newPart)
-        continue
-    purchaseList[newPart.team][newPart.company].append(newPart)
-
-print(purchaseList)
+    return purchaseList
