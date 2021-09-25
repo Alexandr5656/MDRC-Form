@@ -1,6 +1,7 @@
 # importing pandas as pd
 import pandas as pd
 
+
 # read an excel file and convert
 # into a dataframe object
 
@@ -12,7 +13,7 @@ import pandas as pd
 
 class PartOrdered:
 
-    def __init__(self,name,team,part,price,quantity,company,ordered):
+    def __init__(self, name, team, part, price, quantity, company, ordered):
         self.name = name
         self.team = team
         self.part = part
@@ -35,12 +36,13 @@ class PartOrdered:
 #   11:Ordered
 #   12:Date Ordered
 #   13:Date Recieved
-#name,team,part,price,quantity,company,ordered
+# name,team,part,price,quantity,company,ordered
 def loadSheet(fileName):
     df = pd.DataFrame(pd.read_excel(fileName))
     purchaseList = dict()
     for partOrdered in df.values:
-        newPart = PartOrdered(partOrdered[1],partOrdered[2],partOrdered[3],partOrdered[4],partOrdered[5],partOrdered[6],partOrdered[11])
+        newPart = PartOrdered(partOrdered[1], partOrdered[2], partOrdered[3], partOrdered[4], partOrdered[5],
+                              partOrdered[6], partOrdered[11])
 
         if newPart.ordered == "y":
             continue
@@ -48,9 +50,16 @@ def loadSheet(fileName):
             if 'BattleBots' not in purchaseList.keys():
                 purchaseList["BattleBots"] = dict()
                 purchaseList["BattleBots"][newPart.company] = []
+                purchaseList["BattleBots"][newPart.company].append(newPart)
+                continue
+            if newPart.company not in purchaseList["BattleBots"]:
+                purchaseList["BattleBots"][newPart.company] = []
+            purchaseList["BattleBots"][newPart.company].append(newPart)
+            continue
+
         if not newPart.team in purchaseList.keys():
-            purchaseList[newPart.team]= dict()
-            purchaseList[newPart.team][newPart.company]=[]
+            purchaseList[newPart.team] = dict()
+            purchaseList[newPart.team][newPart.company] = []
             purchaseList[newPart.team][newPart.company].append(newPart)
             continue
         if not newPart.company in purchaseList[newPart.team].keys():
