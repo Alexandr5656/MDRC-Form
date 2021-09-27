@@ -46,26 +46,29 @@ def loadSheet(fileName):
 
         if newPart.ordered == "y":
             continue
-        print()
+
         #BattleBots Sorter
         if "TUX" in newPart.team or "Battle" in newPart.team:
+
             if 'BattleBots' not in purchaseList.keys():
                 purchaseList["BattleBots"] = dict()
-                purchaseList["BattleBots"][newPart.company] = []
-                purchaseList["BattleBots"][newPart.company].append([])
+                purchaseList["BattleBots"][newPart.company]=[]
+                purchaseList["BattleBots"][newPart.company].append(list())
+                purchaseList["BattleBots"][newPart.company][0]=[]
                 purchaseList["BattleBots"][newPart.company][0].append(newPart)
                 continue
             if newPart.company not in purchaseList["BattleBots"]:
-                purchaseList["BattleBots"][newPart.company] = []
-                purchaseList["BattleBots"][newPart.company].append([newPart])
+                purchaseList["BattleBots"][newPart.company]=list()
+                purchaseList["BattleBots"][newPart.company].append(list())
+                purchaseList["BattleBots"][newPart.company][0]=[]
+                purchaseList["BattleBots"][newPart.company][0].append(newPart)
                 continue
             ########
             if len(purchaseList["BattleBots"][newPart.company][len(purchaseList["BattleBots"][newPart.company])-1])>4:
-                purchaseList["BattleBots"][newPart.company][len(purchaseList["BattleBots"][newPart.company])].append(newPart)
+                purchaseList["BattleBots"][newPart.company].append(list())
+                purchaseList["BattleBots"][newPart.company][len(purchaseList["BattleBots"][newPart.company])-1].append(newPart)
                 continue
             else:
-                purchaseList["BattleBots"][newPart.company].append([newPart])
-
                 purchaseList["BattleBots"][newPart.company][len(purchaseList["BattleBots"][newPart.company])-1].append(newPart)
                 continue
 
@@ -84,7 +87,6 @@ def loadSheet(fileName):
         if len(purchaseList[newPart.team][newPart.company][len(purchaseList[newPart.team][newPart.company])-1])>4:
             purchaseList[newPart.team][newPart.company][len(purchaseList[newPart.team][newPart.company])].append(newPart)
         else:
-            purchaseList[newPart.team][newPart.company]=[]
             purchaseList[newPart.team][newPart.company][len(purchaseList[newPart.team][newPart.company])-1].append(newPart)
 
     return purchaseList
