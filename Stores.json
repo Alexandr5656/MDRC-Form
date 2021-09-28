@@ -1,0 +1,139 @@
+{
+  "Amazon": {
+    "name":"Amazon",
+    "address":"",
+    "location":"",
+    "number":"",
+    "fax":"",
+    "email":""
+  },
+  "RobotMarketplace": {
+    "name":"Robot MarketPlace",
+    "address":"The Robot MarketPlace 3230 59th Drive E. #103",
+    "location":"Bradenton, FL 34203",
+    "number":"(941) 749-6030",
+    "fax":"(941) 753-5113",
+    "email":"help@robotmarketplace.com "
+  },
+  "McMaster": {
+    "name":"McMaster-Carr",
+    "address":"200 Aurora Industrial Pkwy.",
+    "location":"Aurora, OH 44202-8087",
+    "number":"(330) 995-5500",
+    "fax":"",
+    "email":"cle.sales@mcmaster.com"
+  },
+  "Andymark": {
+    "name":"Andymark",
+    "address":"AndyMark Inc. 1900 E. North St.",
+    "location":"Kokomo, IN 46901",
+    "number":"877-868-4770 ",
+    "fax":"765-868-4795",
+    "email":""
+  },
+  "OnlineMetals": {
+    "name":"onlineMetals",
+    "address":"8001 ThyssenKrupp Parkway",
+    "location":"Northwood, OH 43619",
+    "number":"(888) 527-3331",
+    "fax":"",
+    "email":"sales@onlinemetals.com"
+  },
+  "Banebots": {
+    "name":"Banebots",
+    "address":"537 W66TH ST",
+    "location":"LOVELAND, CO, 80538",
+    "number":"970-461-8880",
+    "fax":"",
+    "email":"SALES@BANEBOTS.COM"
+  },
+  "Hobbyking": {
+    "name":"Hobbyking",
+    "address":"",
+    "location":"",
+    "number":"",
+    "fax":"",
+    "email":""
+  },
+  "FingerTech": {
+    "name":"FingerTech",
+    "address":"FingerTech Robotics Ltd. 423 Turtle Place",
+    "location":"Saskatoon, Saskatchewan S7K 4V9 Canada",
+    "number":"",
+    "fax":"",
+    "email":"sales@fingertechrobotics.com"
+  },
+  "Servocity": {
+    "name":"Servocity",
+    "address":"3850 East 12th Avenue",
+    "location":"Winfield, KS 67156",
+    "number":"(620) 221 0123",
+    "fax":"",
+    "email":"sale@servocity.com"
+  },
+  "MouserElectronics": {
+    "name":"Mouser Electronics",
+    "address":"1000 North Main Street",
+    "location":"Mansfield, TX 76063",
+    "number":"(800) 346-6873",
+    "fax":"",
+    "email":"sales@mouser.com"
+  },
+  "Festo": {
+    "name":"Festo",
+    "address":"",
+    "location":"",
+    "number":"(866)-463-3786",
+    "fax":"",
+    "email":"product.support.us@festo.com"
+  },
+  "CompressorsDirect": {
+    "name":"CompressorsDirect",
+    "address":"",
+    "location":"",
+    "number":"(866)-437-8002",
+    "fax":"",
+    "email":"service@aircompressorsdirect.com"
+  },
+  "AirCompressorsDirect": {
+    "name":"CompressorsDirect",
+    "address":"",
+    "location":"",
+    "number":"(866)-437-8002",
+    "fax":"",
+    "email":"service@aircompressorsdirect.com"
+  },
+  "Adafruit": {
+    "name":"Adafruit",
+    "address":"50 Varick Street",
+    "location":"New York, New York 10013",
+    "number":"",
+    "fax":"",
+    "email":"support@adafruit.com"
+  },
+  "LocalFabShop": {
+    "name":"Local Fab Shop",
+    "address":"",
+    "location":"",
+    "number":"",
+    "fax":"",
+    "email":""
+  },
+  "HardwareStore": {
+    "name":"Hardware Store",
+    "address":"",
+    "location":"",
+    "number":"",
+    "fax":"",
+    "email":""
+  },
+  "KooLance": {
+    "name":"KooLance",
+    "address":"2840 W Valley Hwy N, Ste 101",
+    "location":"Auburn, WA 98001",
+    "number":"253-249-7669",
+    "fax":"",
+    "email":""
+  }
+
+}
