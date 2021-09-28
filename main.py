@@ -9,4 +9,5 @@ def sortSheets(sheetDict):
         for company in sheetDict[team]:
             pdfLoaded.createPdfs(sheetDict)
 
+
 main("test.xlsx")

@@ -2,21 +2,28 @@ from PyPDF2 import PdfFileWriter, PdfFileReader
 import io
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
-
+import json
+import math
+f = open('Stores.json')
+Stores = json.load(f)
+f.close()
 
 def projectHeader(can, name, team):
     can.drawString(125, 650, name)
     can.drawString(400, 650, team)
 
 
-def vendor(can, name, contact, address, city, number, fax, email):
-    can.drawString(217, 605, name)
-    can.drawString(217, 592, contact)
-    can.drawString(217, 575, address)
-    can.drawString(217, 550, city)
-    can.drawString(217, 535, number)
-    can.drawString(217, 520, fax)
-    can.drawString(217, 505, email)
+def vendor(can, company):
+    newCompany = company.replace(" ","")
+    if newCompany.lower() == "mcmaster" or newCompany.lower() == "mcmaster-carr":
+        newCompany = "McMaster"
+    can.drawString(217, 605, Stores[newCompany]["name"])
+    #can.drawString(217, 592, Stores[newCompany]["contact"])  Not Used
+    can.drawString(217, 575, Stores[newCompany]["address"])
+    can.drawString(217, 550, Stores[newCompany]["location"])
+    can.drawString(217, 535, Stores[newCompany]["number"])
+    can.drawString(217, 520, Stores[newCompany]["fax"])
+    can.drawString(217, 505, Stores[newCompany]["email"])
 
 
 def add_Item(can, amount, partNum, partName, unitPrice, lineNum):
@@ -25,7 +32,8 @@ def add_Item(can, amount, partNum, partName, unitPrice, lineNum):
     can.drawString(65, 460 - (lineNum * 29), str(int(amount)))
     can.drawString(92, 460 - (lineNum * 29), partNum)
     can.drawString(450, 460 - (lineNum * 29), "$" + str(unitPrice))
-    can.drawString(500, 460 - (lineNum * 29), "$" + str(amount * unitPrice))
+
+    can.drawString(500, 460 - (lineNum * 29), "$" + str(round(amount * unitPrice,2)))
 
     if len(partName)>42:
         wordIndex = 0
@@ -45,15 +53,15 @@ def add_Item(can, amount, partNum, partName, unitPrice, lineNum):
     return amount * unitPrice
 
 
-def createPdf(parts, team, company,count):
+def createPdf(parts, company,count):
     # Create Page
     packet = io.BytesIO()
     can = canvas.Canvas(packet, pagesize=letter)
 
-    projectHeader(can, "Alex", "BrainBot")
+    projectHeader(can, "MDRC", "")
 
     # Vendor Input
-    vendor(can, "amazon", "", "380 john st", "Rochester", "696-969-6969", "Fax Who?", "corgie@rit.edu")
+    vendor(can, company)
 
     # Part Purchase
     subTotal = 0.0
@@ -79,13 +87,12 @@ def createPdf(parts, team, company,count):
     page.mergePage(new_pdf.getPage(0))
     output.addPage(page)
     # finally, write "output" to a real file
-    outputStream = open("./finished/" + team +"-"+ company+"-"+str(count) + ".pdf", "wb")
+    outputStream = open("./finished/"+"-"+ company+"-"+str(count) + ".pdf", "wb")
     output.write(outputStream)
     outputStream.close()
 
 
 def createPdfs(partDictionary):
-    for team in partDictionary:
-        for company in partDictionary[team]:
-            for i in range(len(partDictionary[team][company])):
-                createPdf(partDictionary[team][company][i], team, company,i)
+    for company in partDictionary:
+        for i in range(len(partDictionary[company])):
+            createPdf(partDictionary[company][i], company,i)
