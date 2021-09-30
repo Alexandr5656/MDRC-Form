@@ -18,7 +18,6 @@ def vendor(can, company):
     if newCompany.lower() == "mcmaster" or newCompany.lower() == "mcmaster-carr":
         newCompany = "McMaster"
     can.drawString(217, 605, Stores[newCompany]["name"])
-    #can.drawString(217, 592, Stores[newCompany]["contact"])  Not Used
     can.drawString(217, 575, Stores[newCompany]["address"])
     can.drawString(217, 550, Stores[newCompany]["location"])
     can.drawString(217, 535, Stores[newCompany]["number"])
