@@ -1,6 +1,11 @@
 import json
 import webbrowser
 import time
+from PyPDF2 import PdfFileWriter, PdfFileReader
+import io
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+import json
 def parseLinkSheet(sheetDict):
     linkDict = dict()
     for company in sheetDict.keys():
@@ -25,4 +30,32 @@ def openLinks(linkDict):
                 webbrowser.open_new_tab(link)
         shippingValue = input("Enter "+company+" shipping: \n")
         totalValue = input("Enter " + company + " shipping: \n")
-        print(f'You entered {shippingValue} and {totalValue}')
+        fileName = "finished/-"+company+"-"+len(partlist)+".pdf"
+        addPrices(shippingValue,totalValue,fileName)
+
+def addPrices(ship,total,file):
+    packet = io.BytesIO()
+    can = canvas.Canvas(packet, pagesize=letter)
+
+
+
+
+    can.drawString(500, 300, "$" + str(ship))
+    can.drawString(500, 280, "$" + str(total))
+    can.save()
+    # move to the beginning of the StringIO buffer
+    packet.seek(0)
+
+    # create a new PDF with Reportlab
+    new_pdf = PdfFileReader(packet)
+    # read your existing PDF
+    existing_pdf = PdfFileReader(open(file, "rb"))
+    output = PdfFileWriter()
+    # add the "watermark" (which is the new pdf) on the existing page
+    page = existing_pdf.getPage(0)
+    page.mergePage(new_pdf.getPage(0))
+    output.addPage(page)
+    # finally, write "output" to a real file
+    outputStream = open(file, "wb")
+    output.write(outputStream)
+    outputStream.close()

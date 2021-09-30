@@ -7,7 +7,7 @@ def main(fileName):
 #Sheet sorting
 def sortSheets(sheetDict):
     pdfLoaded.createPdfs(sheetDict)
-    #linkP.parseLinkSheet(sheetDict)
+    linkP.parseLinkSheet(sheetDict)
 
 
 main("test.xlsx")
