@@ -4,19 +4,21 @@ import pandas as pd
 
 class PartOrdered:
 
-    def __init__(self, name, team, partNum, part, price, quantity, company, ordered,link):
+    def __init__(self, name, team, partNum, part, price, quantity, company, ordered,link,stock,account):
         self.name = name
         self.team = team
         self.partNum = partNum
         self.part = part
         self.price = price
         self.quantity = quantity
-        self.company = company
+        self.company = str(company).replace(" ", "")
         if company == "McMaster":
             self.company = "McMaster-Carr"
 
         self.ordered = ordered
         self.link = link
+        self.stock = stock
+        self.account= account
 
 
 #   1:Name
@@ -38,9 +40,9 @@ def loadSheet(fileName):
     purchaseList = dict()
     for partOrdered in df.values:
         newPart = PartOrdered(partOrdered[1], partOrdered[2], partOrdered[3], partOrdered[4], partOrdered[5],
-                              partOrdered[6], partOrdered[7], partOrdered[12],partOrdered[8])
+                              partOrdered[6], partOrdered[7], partOrdered[12],partOrdered[8],partOrdered[13],partOrdered[11])
 
-        if newPart.ordered == "Y":
+        if newPart.ordered == "Y" or  newPart.stock == "Y" or newPart.account != "KGCOE":
             continue
 
         #BattleBots Sorter

@@ -57,7 +57,7 @@ def createPdf(parts, company,count):
     packet = io.BytesIO()
     can = canvas.Canvas(packet, pagesize=letter)
 
-    projectHeader(can, "MDRC", "")
+    projectHeader(can, "Multi-Disciplinary Robotics Club", "")
 
     # Vendor Input
     vendor(can, company)
@@ -68,10 +68,10 @@ def createPdf(parts, company,count):
         subTotal += add_Item(can,parts[i].quantity, "", parts[i].part, parts[i].price, i)
 
 
-    can.drawString(500, 323, "$" + str(subTotal))
+    can.drawString(500, 323, "$" + str(round(subTotal,2)))
     # Name Line
     can.drawString(300, 243, "Alex Burbano arb8590@rit.edu")
-    can.drawString(530, 243, "9/20/21")
+    can.drawString(530, 243, "10/2/21")
     can.save()
     # move to the beginning of the StringIO buffer
     packet.seek(0)

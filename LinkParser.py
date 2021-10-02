@@ -20,18 +20,35 @@ def parseLinkSheet(sheetDict):
     json.dump(linkDict, a_file)
     openLinks(linkDict)
     openLinks(linkDict)
-def openLinks(linkDict):
+def openLinks(sheetDict):
     browser = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
     webbrowser.get(browser)
-    for company in linkDict.keys():
-        for partlist in linkDict[company]:
-            for link in partlist:
-                print(link)
-                webbrowser.open_new_tab(link)
-        shippingValue = input("Enter "+company+" shipping: \n")
-        totalValue = input("Enter " + company + " shipping: \n")
-        fileName = "finished/-"+company+"-"+len(partlist)+".pdf"
-        addPrices(shippingValue,totalValue,fileName)
+    companyPrices = dict()
+    for company in sheetDict.keys():
+        count= 0
+        for partlist in sheetDict[company]:
+            subTotal = 0
+            for part in partlist:
+                print(partlist)
+                subTotal+=(part.price*part.quantity)
+                if part.link == part.link:
+                    pass
+                    #webbrowser.open_new_tab(part.link)
+            if count < (len(sheetDict[company])-1):
+                fileName = "./finished/-" + company + "-" + str(count) + ".pdf"
+                addPrices(0, subTotal, fileName)
+                count+=1
+            else:
+                shippingValue = input("Enter " + company + " shipping: \n")
+                totalValue = (subTotal+float(shippingValue))
+                fileName = "./finished/-" + company + "-" + str(len(sheetDict[company]) - 1) + ".pdf"
+                companyPrices[company] = {"price": totalValue, "shipping": shippingValue}
+                addPrices(shippingValue, totalValue, fileName)
+
+
+    with open('data.json', 'w') as json_file:
+        json.dump(companyPrices, json_file)
+
 
 def addPrices(ship,total,file):
     packet = io.BytesIO()
@@ -56,6 +73,6 @@ def addPrices(ship,total,file):
     page.mergePage(new_pdf.getPage(0))
     output.addPage(page)
     # finally, write "output" to a real file
-    outputStream = open(file, "wb")
+    outputStream = open(file.replace("finished","shipping"), "wb")
     output.write(outputStream)
     outputStream.close()
