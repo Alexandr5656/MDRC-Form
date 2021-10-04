@@ -9,7 +9,7 @@ Stores = json.load(f)
 f.close()
 
 def projectHeader(can, name, team):
-    can.drawString(125, 650, name)
+    can.drawString(100, 650, name)
     can.drawString(400, 650, team)
 
 
@@ -30,9 +30,10 @@ def add_Item(can, amount, partNum, partName, unitPrice, lineNum):
     #42
     can.drawString(65, 460 - (lineNum * 29), str(int(amount)))
     can.drawString(92, 460 - (lineNum * 29), partNum)
-    can.drawString(450, 460 - (lineNum * 29), "$" + str(unitPrice))
-
-    can.drawString(500, 460 - (lineNum * 29), "$" + str(round(amount * unitPrice,2)))
+    sp = ("{:.2f}".format(round(unitPrice, 2)))
+    can.drawString(450, 460 - (lineNum * 29), "$" + sp)
+    mp = ("{:.2f}".format(round(amount*unitPrice, 2)))
+    can.drawString(500, 460 - (lineNum * 29), "$" + mp)
 
     if len(partName)>42:
         wordIndex = 0
@@ -67,11 +68,12 @@ def createPdf(parts, company,count):
     for i in range(len(parts)):
         subTotal += add_Item(can,parts[i].quantity, "", parts[i].part, parts[i].price, i)
 
-
-    can.drawString(500, 323, "$" + str(round(subTotal,2)))
+    sT = ("{:.2f}".format(round(subTotal, 2)))
+    can.drawString(500, 323, "$" + sT)
     # Name Line
     can.drawString(300, 243, "Alex Burbano arb8590@rit.edu")
-    can.drawString(530, 243, "10/2/21")
+    can.drawString(530, 243, "10/3/21")
+    can.drawString(87, 310, "x")
     can.save()
     # move to the beginning of the StringIO buffer
     packet.seek(0)

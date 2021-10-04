@@ -21,6 +21,10 @@ def parseLinkSheet(sheetDict):
     openLinks(linkDict)
     openLinks(linkDict)
 def openLinks(sheetDict):
+    f = open('data.json', )
+    shipCosts = json.load(f)
+    f.close()
+    print(shipCosts)
     browser = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
     webbrowser.get(browser)
     companyPrices = dict()
@@ -39,15 +43,17 @@ def openLinks(sheetDict):
                 addPrices(0, subTotal, fileName)
                 count+=1
             else:
-                shippingValue = input("Enter " + company + " shipping: \n")
+                #shippingValue = input("Enter " + company + " shipping: \n")
+                print(company)
+                shippingValue = shipCosts[company]["shipping"]
                 totalValue = (subTotal+float(shippingValue))
                 fileName = "./finished/-" + company + "-" + str(len(sheetDict[company]) - 1) + ".pdf"
                 companyPrices[company] = {"price": totalValue, "shipping": shippingValue}
-                addPrices(shippingValue, totalValue, fileName)
+                addPrices(float(shippingValue), totalValue, fileName)
 
 
-    with open('data.json', 'w') as json_file:
-        json.dump(companyPrices, json_file)
+    #with open('data.json', 'w') as json_file:
+    #    json.dump(companyPrices, json_file)
 
 
 def addPrices(ship,total,file):
@@ -57,8 +63,8 @@ def addPrices(ship,total,file):
 
 
 
-    can.drawString(500, 300, "$" + str(ship))
-    can.drawString(500, 280, "$" + str(total))
+    can.drawString(500, 300, "$" + ("{:.2f}".format(round(ship, 2))))
+    can.drawString(500, 280, "$" + ("{:.2f}".format(round(total, 2))))
     can.save()
     # move to the beginning of the StringIO buffer
     packet.seek(0)
